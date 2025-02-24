@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>kayakiran.net website</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <meta name="keywords" content="kayakiran.net, Onur kayakiran">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="pclover" />
+    <meta name="theme-color" content="#f499a8">
+    <link rel='stylesheet' type='text/css' media='screen' href='./assets/css/theme.css'>
+    <script src='./assets/app.js'></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <div class="header">
+        <p>BIOS SETUP UTILITY</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a id="info" class="tab-title" href="#info" onclick="setTab(event, 'tab-info')">Information</a></li>
+            <li><a id="main" class="tab-title" href="#main" onclick="setTab(event, 'tab-main')">Main</a></li>
+            <li><a id="wru" class="tab-title" href="#wru" onclick="setTab(event, 'tab-wru')">Who are you?</a></li>
+            <li><a id="exit" class="tab-title" href="#exit" onclick="setTab(event, 'tab-exit')">Exit</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div id="tab-info" class="main-content">
+        <div class="border">
+            <p id="h1">Onur Kayakiran</p>
+            <br>
+            <p>
+                <span class="disabled">
+                    A computer lover, a Kubernetes fan, and someone who loves to learn.
+                    <br><br>
+                    If you want to know who I am, visit the main page. I already know who you are, so don't skip "Who are you?"
+                </span>
+            </p>
+            <br>
+            <p>use arrow keys to navigate.</p>
+        </div>
+    </div>
+
+    <div id="tab-main" class="main-content">
+        <div class="border">
+            <p id="h1">who am i ?</p>
+            <ul>
+                <a href="https://github.com/onurkayakiran">
+                    <li>[my github]</li>
+                </a>
+                <a href="https://www.linkedin.com/in/onur-kayakiran/">
+                    <li>[my linkedin]</li>
+                </a>
+            </ul>
+            <p id="h1">--------------</p>
+            <p id="h2">contact e-mail: onur@kayakiran.net</p>
+            <p id="h1">--------------</p>
+            <p id="h1">socials</p>
+            <p>
+                <a href="https://github.com/onurkayakiran" class="no"><i data-feather="github"></i></a>
+                <a href="https://instagram.com/onurkayakiran" class="no"><i data-feather="instagram"></i></a>
+                <a href="https://twitter.com/onurkayakiran" class="no"> <i data-feather="twitter"></i></a>
+            </p>
+        </div>
+    </div>
+
+    <div id="tab-wru" class="main-content">
+        <div class="border">
+            <p id="h1">Who are you?</p>
+            <ul>
+                <div id="ip"></div>
+                <br>
+                <div id="ua"></div>
+                <br>
+                <div id="country"></div>
+                <br>
+                <div id="city"></div>
+                <br>
+                <div id="isp"></div>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tab-exit" class="main-content">
+        <div class="border">
+            <p class="selected" onkeydown="exit(); return false;">Press [enter] to exit bios</p>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div id="cobaltWebring"></div>
+    </footer>
+
+    <script>feather.replace();</script>
+    <script>
+        window.addEventListener("load", function (event) {
+            start();
+            setTab(event, "tab-info");
+            eid("info").classList.add("active");
+        });
+    </script>
+
+    <script>
+        document.getElementById('ua').textContent = 'Your browser information: ' + navigator.userAgent;
+
+        fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById('ip').textContent = 'Your IP address: ' + data.ip;
+
+            return fetch('http://ip-api.com/json/' + data.ip);
+          })
+          .then(response => response.json())
+          .then(locationData => {
+            document.getElementById('country').textContent = 'Country: ' + locationData.country;
+            document.getElementById('city').textContent = 'City: ' + locationData.city;
+            document.getElementById('isp').textContent = 'ISP: ' + locationData.isp;
+          })
+          .catch(err => console.error(err));
+    </script>
+    <script>
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    }, false);
+    </script>
+
+</body>
+</html>
